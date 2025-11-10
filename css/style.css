@@ -1,0 +1,349 @@
+/* =========================================================
+   Base Theme
+   ========================================================= */
+:root {
+  /* Palette */
+  --cl-bg: #F7F5F0;
+  --cl-surface: #ffffff;
+  --cl-ink: #111111;
+  --cl-muted: #6b7280;
+  --cl-accent: #31443A;
+  --cl-gold: #D9C6A3;
+
+  /* Shadows / radius */
+  --radius: 18px;
+  --shadow-sm: 0 6px 22px rgba(17, 17, 17, 0.06);
+  --shadow-lg: 0 24px 60px rgba(17, 17, 17, 0.12);
+
+  /* Motion */
+  --t-fast: 180ms;
+  --t-mid: 260ms;
+  --t-slow: 720ms;
+  --ease-out: cubic-bezier(.17,.67,.25,1);
+  --ease-in: cubic-bezier(.5,0,.8,.15);
+  --ease-io: cubic-bezier(.45,.05,.55,.95);
+
+  /* Background images (상대경로 수정됨) */
+  --bg1: url("../assets/Background1.png");
+  --bg2: url("../assets/Background2.jpg");
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: "Inter", "Noto Sans KR", system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Apple SD Gothic Neo", "Nanum Gothic",
+    "Malgun Gothic", sans-serif;
+  color: var(--cl-ink);
+  background: var(--cl-bg);
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================================
+   Background Cycler (cross-fade)
+   ========================================================= */
+#bg-cycler {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+#bg-cycler::before,
+#bg-cycler::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: opacity var(--t-slow) var(--ease-io), transform var(--t-slow) var(--ease-io);
+  will-change: opacity, transform;
+  filter: saturate(0.94) contrast(1.02) brightness(0.98);
+}
+
+#bg-cycler::before { 
+  background-image: var(--bg1);
+  opacity: 1;
+  transform: scale(1.02);
+}
+#bg-cycler::after  { 
+  background-image: var(--bg2);
+  opacity: 0;
+  transform: scale(1.04);
+}
+
+#bg-cycler.bg-1::before { opacity: 1; transform: scale(1.02); }
+#bg-cycler.bg-1::after  { opacity: 0; transform: scale(1.04); }
+
+#bg-cycler.bg-2::before { opacity: 0; transform: scale(1.04); }
+#bg-cycler.bg-2::after  { opacity: 1; transform: scale(1.02); }
+
+/* =========================================================
+   Page Layout
+   ========================================================= */
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: clamp(16px, 4vw, 40px);
+}
+
+.site-header {
+  text-align: center;
+  margin: 24px 0 28px;
+}
+
+.site-title {
+  font-weight: 800;
+  font-size: clamp(24px, 3.2vw, 44px);
+  letter-spacing: -0.01em;
+  margin: 0 0 6px 0;
+}
+
+.site-subtitle {
+  color: var(--cl-muted);
+  font-size: clamp(13px, 1.6vw, 16px);
+  margin: 0;
+}
+
+/* =========================================================
+   Cards Grid
+   ========================================================= */
+.cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(16px, 2.2vw, 28px);
+  margin-top: 22px;
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 720px) {
+  .cards { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Desktop: 3 columns */
+@media (min-width: 1024px) {
+  .cards { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* =========================================================
+   Card
+   ========================================================= */
+.card { list-style: none; margin: 0; }
+
+.card-hit {
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  padding: 0;
+  background: var(--cl-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform var(--t-mid) var(--ease-out),
+              box-shadow var(--t-mid) var(--ease-out),
+              filter var(--t-mid) var(--ease-out);
+  will-change: transform, box-shadow, filter;
+}
+
+.card-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.02);
+  transition: transform var(--t-mid) var(--ease-out), filter var(--t-mid) var(--ease-out);
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 16px 18px;
+}
+
+.card-title {
+  font-weight: 700;
+  font-size: clamp(16px, 1.8vw, 20px);
+  letter-spacing: -0.01em;
+  margin: 2px 0 0 0;
+}
+
+.card-notes {
+  margin: 0;
+  color: var(--cl-muted);
+  font-size: 0.95rem;
+}
+
+.card-cta {
+  margin-top: 6px;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--cl-accent);
+  border-bottom: 1px solid color-mix(in srgb, var(--cl-accent) 55%, transparent);
+  padding-bottom: 2px;
+  transition: color var(--t-fast) var(--ease-out), border-color var(--t-fast) var(--ease-out);
+}
+
+/* Hover / Focus */
+.card-hit:hover,
+.card-hit:focus-visible {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: var(--shadow-lg);
+}
+
+.card-hit:hover .card-media img,
+.card-hit:focus-visible .card-media img {
+  transform: scale(1.05);
+  filter: saturate(1.02) contrast(1.02);
+}
+
+.card-hit:hover .card-cta,
+.card-hit:focus-visible .card-cta {
+  color: var(--cl-ink);
+  border-bottom-color: color-mix(in srgb, var(--cl-ink) 40%, transparent);
+}
+
+.card-hit:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--cl-accent) 40%, transparent);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   Footer
+   ========================================================= */
+.site-footer {
+  text-align: center;
+  color: var(--cl-muted);
+  font-size: 0.85rem;
+  margin: 26px 0 6px;
+}
+
+/* =========================================================
+   Alternate Image Overlay
+   ========================================================= */
+.alt-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  background: rgba(17, 17, 17, 0.35);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--t-mid) var(--ease-out), visibility 0s linear var(--t-mid);
+}
+
+.alt-overlay.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--t-mid) var(--ease-out);
+}
+
+.alt-card {
+  width: min(92vw, 720px);
+  background: var(--cl-surface);
+  border-radius: calc(var(--radius) + 6px);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transform: translateY(8px) scale(.98);
+  transition: transform var(--t-mid) var(--ease-out);
+}
+
+.alt-overlay.is-open .alt-card {
+  transform: translateY(0) scale(1);
+}
+
+.alt-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(180deg, #fafafa, #f3f3f3);
+}
+
+.alt-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.alt-caption {
+  padding: 10px 14px 14px;
+  color: var(--cl-muted);
+  font-size: 0.9rem;
+}
+
+.alt-close {
+  position: absolute;
+  inset: 10px 10px auto auto;
+  z-index: 2;
+  border: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.9);
+  color: #000;
+  font-size: 22px;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--t-fast) var(--ease-out), background var(--t-fast) var(--ease-out);
+}
+
+.alt-close:hover,
+.alt-close:focus-visible {
+  transform: scale(1.06);
+  background: #fff;
+  outline: 2px solid color-mix(in srgb, var(--cl-accent) 35%, transparent);
+}
+
+/* =========================================================
+   Reduced Motion
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =========================================================
+   Helpers
+   ========================================================= */
+img { max-width: 100%; height: auto; }
+
+.hidden { display: none !important; }
+
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  pointer-events: none;
+  border: 1px solid color-mix(in srgb, var(--cl-gold) 38%, transparent);
+}
