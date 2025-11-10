@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>향긋한 곰을 소개합니다</title>
+    <meta name="description" content="향수 소개 카드 페이지 - Flexbox & Grid, 자연스러운 트랜지션과 배경 전환" />
+
+    <!-- Google Fonts: Inter (영문) + Noto Sans KR (한글) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+KR:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- 배경 사이클러 -->
+    <div id="bg-cycler" aria-hidden="true"></div>
+
+    <!-- 페이지 래퍼 -->
+    <div class="page">
+      <header class="site-header">
+        <h1 class="site-title">향긋한 곰을 소개합니다.</h1>
+        <p class="site-subtitle">Holiday Fragrance · Minimal & Classic Blend</p>
+      </header>
+
+      <!-- 카드 그리드 -->
+      <main class="cards" role="list">
+        <!-- Card 1 -->
+        <article class="card" role="listitem">
+          <button class="card-hit"
+                  type="button"
+                  aria-label="카드 1 열기: L'Ombre Dans L'Eau"
+                  data-img="assets/img1.jpg"
+                  data-alt="assets/img1-1.jpg"
+                  data-bg="1">
+            <figure class="card-media">
+              <img src="assets/img1.jpg"
+                   loading="lazy"
+                   alt="검은 라벨의 오벌 보틀, 그린 노트의 향수" />
+            </figure>
+            <div class="card-body">
+              <h2 class="card-title">L’Ombre Dans L’Eau</h2>
+              <p class="card-notes">블랙커런트 · 로즈 · 그린</p>
+              <span class="card-cta" aria-hidden="true">자세히 보기</span>
+            </div>
+          </button>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card" role="listitem">
+          <button class="card-hit"
+                  type="button"
+                  aria-label="카드 2 열기: Do Son"
+                  data-img="assets/img2.jpg"
+                  data-alt="assets/img2-1.jpg"
+                  data-bg="1">
+            <figure class="card-media">
+              <img src="assets/img2.jpg"
+                   loading="lazy"
+                   alt="화이트 플로럴 튜베로즈 무드의 향수" />
+            </figure>
+            <div class="card-body">
+              <h2 class="card-title">Do Son</h2>
+              <p class="card-notes">튜베로즈 · 자스민 · 머스크</p>
+              <span class="card-cta" aria-hidden="true">자세히 보기</span>
+            </div>
+          </button>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card" role="listitem">
+          <button class="card-hit"
+                  type="button"
+                  aria-label="카드 3 열기: Mixed Emotions"
+                  data-img="assets/img3.jpg"
+                  data-alt="assets/img3-1.jpg"
+                  data-bg="2">
+            <figure class="card-media">
+              <img src="assets/img3.jpg"
+                   loading="lazy"
+                   alt="미니멀 라벨의 향수, 블랙 티 노트" />
+            </figure>
+            <div class="card-body">
+              <h2 class="card-title">Mixed Emotions</h2>
+              <p class="card-notes">마테 · 블랙티 · 캐시스</p>
+              <span class="card-cta" aria-hidden="true">자세히 보기</span>
+            </div>
+          </button>
+        </article>
+      </main>
+
+      <footer class="site-footer" role="contentinfo">
+        <small>© 향긋한 곰 · All fragrances and images for demo only.</small>
+      </footer>
+    </div>
+
+    <!-- 대체 이미지 오버레이 -->
+    <div id="alt-overlay" class="alt-overlay" aria-hidden="true" aria-live="polite">
+      <div class="alt-card" role="dialog" aria-modal="true" aria-label="대체 이미지 미리보기">
+        <button class="alt-close" type="button" aria-label="닫기">×</button>
+        <figure class="alt-media">
+          <img id="alt-image" src="" alt="대체 이미지 미리보기" />
+          <figcaption id="alt-caption" class="alt-caption"></figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <noscript>
+      이 페이지의 상호작용(배경 전환, 팝업, 애니메이션)을 사용하려면 자바스크립트를 활성화해 주세요.
+    </noscript>
+
+    <!-- Scripts -->
+    <script defer src="js/app.js"></script>
+  </body>
+</html>
